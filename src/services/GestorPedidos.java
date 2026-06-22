@@ -1,6 +1,6 @@
-package servicios;
+package services;
 
-import modelo.Pedido;
+import entities.Pedido;
 import java.util.ArrayList;
 import java.util.List;
 

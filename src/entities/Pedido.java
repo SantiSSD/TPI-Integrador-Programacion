@@ -1,5 +1,6 @@
-package modelo;
+package entities;
 
+import interfaces.Calculable;
 import java.util.ArrayList;
 import java.util.List;
 import excepciones.StockInsuficienteException;

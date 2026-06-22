@@ -1,5 +1,5 @@
-package modelo;
-import enumeraciones.Categoria;
+package entities;
+import enums.Categoria;
 
 public class Producto {
     private String id;
@@ -7,14 +7,18 @@ public class Producto {
     private double precio;
     private int stock;
     private Categoria categoria;
+    private boolean disponible;
 
-    public Producto(String id, String nombre, double precio, int stock, Categoria categoria) {
+    public Producto(String id, String nombre, double precio, int stock, Categoria categoria, boolean disponible) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
         this.categoria = categoria;
+        this.disponible = disponible;
     }
+
+
 
     // Getters y Setters
     public String getId() { return id; }
