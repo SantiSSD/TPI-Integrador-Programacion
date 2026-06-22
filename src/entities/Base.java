@@ -11,10 +11,11 @@ import java.time.LocalDateTime;
  * @author autor
  */
 public abstract class Base {
+
     private long id;
     private boolean eliminado = false;
     private LocalDateTime createdAt;
-    
+
     // 2.Por si necesitamos forzar fecha y ID específicos (ej. datos de prueba)
     public Base(long id, LocalDateTime createdAt) {
         this.id = id;
@@ -27,13 +28,21 @@ public abstract class Base {
         this.eliminado = false;
     }
 
+    public boolean isEliminado() {
+        return eliminado;
+
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+
     public long getId() {
         return id;
     }
-   
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    
 }

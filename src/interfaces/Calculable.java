@@ -1,5 +1,5 @@
 package interfaces;
 
 public interface Calculable {
-    double calcularTotal();
+    void calcularTotal();
 }
