@@ -26,7 +26,7 @@ public class Producto extends Base{
     }
 
     //Constructor principal
-    public Producto(String nombre, double precio, String descripcion, int stock, String imagen, boolean disponible, Categoria categoria, long id) {
+    public Producto(String nombre, double precio, String descripcion, int stock, String imagen, boolean disponible, Categoria categoria) {
         super(contadorId++);
         this.nombre = nombre;
         this.precio = precio;
