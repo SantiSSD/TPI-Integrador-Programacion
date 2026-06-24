@@ -26,7 +26,7 @@ public class Categoria extends Base {
     }
 
     //Constructor principal para la consola (ID automático)
-    public Categoria(String nombre, String descripcion, long id) {
+    public Categoria(String nombre, String descripcion) {
         super(contadorId++);
         this.nombre = nombre;
         this.descripcion = descripcion;

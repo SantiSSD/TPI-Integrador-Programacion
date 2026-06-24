@@ -13,13 +13,14 @@
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/entities/Categoria.java</file>
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/entities/Producto.java</file>
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/entities/Usuario.java</file>
-            <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/vista/Main.java</file>
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/excepciones/StockInvalidoException.java</file>
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/excepciones/EntidadNoEncontradaException.java</file>
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/excepciones/EntidadDuplicadaException.java</file>
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/excepciones/DatosInvalidosException.java</file>
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/services/ProductoService.java</file>
             <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/services/UsuarioService.java</file>
+            <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/vista/Main.java</file>
+            <file>file:/C:/Tecnicatura%20Universitaria%20Programación/Segundo%20Cuatrimestre/UTN-TUPaD-Programacion2/Trabajo%20Practico%20Integrador/FoodStoreTPI/src/services/CategoriaService.java</file>
         </group>
     </open-files>
 </project-private>

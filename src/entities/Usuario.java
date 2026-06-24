@@ -29,7 +29,7 @@ public class Usuario extends Base {
     }
 
     // CONSTRUCTOR PRINCIPAL:
-    public Usuario(String nombre, String apellido, String mail, String celular, String contrasena, Rol rol, long id) {
+    public Usuario(String nombre, String apellido, String mail, String celular, String contrasena, Rol rol) {
         super(contadorId++);
         this.nombre = nombre;
         this.apellido = apellido;
@@ -78,6 +78,11 @@ public class Usuario extends Base {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+    public void setContrasena(String contrasena)
+    {
+        this.contrasena = contrasena;
+    
     }
 
     @Override

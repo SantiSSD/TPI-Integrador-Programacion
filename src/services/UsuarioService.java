@@ -8,6 +8,7 @@ import entities.Usuario;
 import enums.Rol;
 import excepciones.DatosInvalidosException;
 import excepciones.EntidadDuplicadaException;
+import excepciones.EntidadNoEncontradaException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class UsuarioService {
             throw new DatosInvalidosException("❌ Los campos obligatorios (Nombre, Apellido, Email, Contraseña) no pueden estar vacíos.");
         }
 
-        // 2. Validar regla de negocio: Email único (Usa tu EntidadDuplicadaException)
+        // 2. Validar regla de negocio: Email único 
         for (Usuario u : listaUsuarios) {
             if (u.getMail().equalsIgnoreCase(mail) && !u.isEliminado()) {
                 throw new EntidadDuplicadaException("❌ Ya existe un usuario activo registrado con el email: " + mail);
@@ -82,7 +83,8 @@ public class UsuarioService {
 
     // HU-USR-04: Eliminar Usuario (Baja Lógica)
     public void eliminarUsuario(long id) throws EntidadNoEncontradaException {
+    
         Usuario u = buscarPorId(id);
-        u.setEliminado(true); // Soft delete
+        u.setEliminado(true); 
     }
 }
