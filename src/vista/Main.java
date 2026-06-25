@@ -4,8 +4,10 @@
  */
 
 import entities.Categoria;
+import entities.Pedido;
 import entities.Producto;
 import entities.Usuario;
+import enums.Estado;
 import enums.FormaPago;
 import enums.Rol;
 import excepciones.DatosInvalidosException;
@@ -267,6 +269,8 @@ public class Main {
             System.out.println("\n--- SUBMENÚ: GESTIÓN DE PEDIDOS ---");
             System.out.println("1. Registrar Pedido Completo");
             System.out.println("2. Listar Historial de Pedidos");
+            System.out.println("3. Actualizar Estado / Forma de Pago");
+            System.out.println("4. Eliminar Pedido");
             System.out.println("0. Volver al Menú Principal");
             System.out.print("Seleccione una opción: ");
 
@@ -340,6 +344,67 @@ public class Main {
                         System.out.println("No hay pedidos registrados.");
                     } else {
                         gestorPedidos.listarPedidos().forEach(System.out::println);
+                    }
+                } 
+                
+                else if (op == 3) {
+                    System.out.println("\n--- ACTUALIZAR ESTADO / FORMA DE PAGO ---");
+                    List<Pedido> pedidosActivos = gestorPedidos.listarPedidos();
+                    if (pedidosActivos.isEmpty()) {
+                        System.out.println("❌ No hay pedidos registrados.");
+                        return;
+                    }
+                    System.out.println("Pedidos Disponibles:");
+                    for (Pedido p : pedidosActivos) {
+                        System.out.println("   ➡ [ID: " + p.getId() + "] - "
+                                + p.getUsuario().getNombre() + " | Estado: "
+                                + p.getEstado() + " | Total: $" + p.getTotal());
+                    }
+                    System.out.println("---------------------------------------");
+                    System.out.print("Ingrese ID del pedido a actualizar: ");
+                    long idPedAct = Long.parseLong(leer.nextLine());
+                    Pedido pedidoAct = gestorPedidos.buscarPorId(idPedAct);
+
+                    System.out.println("Estado actual: " + pedidoAct.getEstado());
+                    System.out.println("1. CONFIRMADO | 2. TERMINADO | 3. CANCELADO");
+                    System.out.print("Seleccione nuevo estado: ");
+                    int estOp = Integer.parseInt(leer.nextLine());
+                    Estado nuevoEstado = Estado.CONFIRMADO;
+                    if (estOp == 2) {
+                        nuevoEstado = Estado.TERMINADO;
+                    }
+                    if (estOp == 3) {
+                        nuevoEstado = Estado.CANCELADO;
+                    }
+                    pedidoAct.setEstado(nuevoEstado);
+                    
+                    System.out.println("Forma de Pago actual: " + pedidoAct.getFormaPago());
+                    System.out.println("1. EFECTIVO | 2. TARJETA | 3. TRANSFERENCIA");
+                    System.out.print("Seleccione nueva forma de pago: ");
+                    int fpOpU = Integer.parseInt(leer.nextLine());
+                    FormaPago nuevaFP = FormaPago.EFECTIVO;
+                    if (fpOpU == 2) {
+                        nuevaFP = FormaPago.TARJETA;
+                    }
+                    if (fpOpU == 3) {
+                        nuevaFP = FormaPago.TRANSFERENCIA;
+                    }
+                
+                    pedidoAct.setFormaPago(nuevaFP);
+                    System.out.println("✅ ¡Pedido actualizado con éxito!");
+                } 
+                    
+                    else if (op == 4) {
+                    System.out.println("\n--- ELIMINAR PEDIDO (BAJA LÓGICA) ---");
+                    System.out.print("Ingrese ID del pedido a eliminar: ");
+                    long idPedEl = Long.parseLong(leer.nextLine());
+                    System.out.print("¿Está seguro? (S/N): ");
+                    if (leer.nextLine().equalsIgnoreCase("S")) {
+                        Pedido pedidoEl = gestorPedidos.buscarPorId(idPedEl);
+                        pedidoEl.setEliminado(true);
+                        System.out.println("✅ ¡Pedido eliminado lógicamente!");
+                    } else {
+                        System.out.println("⚠️ Operación cancelada.");
                     }
                 }
             } catch (NumberFormatException e) {
@@ -441,4 +506,3 @@ public class Main {
         }
     }
 }
-    
