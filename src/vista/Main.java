@@ -128,9 +128,13 @@ public class Main {
                         System.out.println("\n--- ELIMINAR CATEGORÍA (BAJA LÓGICA) ---");
                         System.out.print("Ingrese ID de la categoría a dar de baja: ");
                         long idEli = Long.parseLong(leer.nextLine());
-
-                        categoriaService.eliminarCategoria(idEli);
-                        System.out.println("✅ ¡Categoría dada de baja de forma lógica!");
+                        System.out.print("¿Está seguro? (S/N): ");
+                        if (leer.nextLine().equalsIgnoreCase("S")) {
+                            categoriaService.eliminarCategoria(idEli);
+                            System.out.println("✅ ¡Categoría dada de baja de forma lógica!");
+                        } else {
+                            System.out.println("⚠️ Operación cancelada.");
+                        }
                         break;
                     case 0:
                         break;
@@ -345,9 +349,7 @@ public class Main {
                     } else {
                         gestorPedidos.listarPedidos().forEach(System.out::println);
                     }
-                } 
-                
-                else if (op == 3) {
+                } else if (op == 3) {
                     System.out.println("\n--- ACTUALIZAR ESTADO / FORMA DE PAGO ---");
                     List<Pedido> pedidosActivos = gestorPedidos.listarPedidos();
                     if (pedidosActivos.isEmpty()) {
@@ -377,7 +379,7 @@ public class Main {
                         nuevoEstado = Estado.CANCELADO;
                     }
                     pedidoAct.setEstado(nuevoEstado);
-                    
+
                     System.out.println("Forma de Pago actual: " + pedidoAct.getFormaPago());
                     System.out.println("1. EFECTIVO | 2. TARJETA | 3. TRANSFERENCIA");
                     System.out.print("Seleccione nueva forma de pago: ");
@@ -389,12 +391,10 @@ public class Main {
                     if (fpOpU == 3) {
                         nuevaFP = FormaPago.TRANSFERENCIA;
                     }
-                
+
                     pedidoAct.setFormaPago(nuevaFP);
                     System.out.println("✅ ¡Pedido actualizado con éxito!");
-                } 
-                    
-                    else if (op == 4) {
+                } else if (op == 4) {
                     System.out.println("\n--- ELIMINAR PEDIDO (BAJA LÓGICA) ---");
                     System.out.print("Ingrese ID del pedido a eliminar: ");
                     long idPedEl = Long.parseLong(leer.nextLine());
