@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-
 import entities.Categoria;
 import entities.Producto;
 import entities.Usuario;
@@ -13,6 +12,9 @@ import excepciones.DatosInvalidosException;
 import excepciones.EntidadDuplicadaException;
 import excepciones.EntidadNoEncontradaException;
 import excepciones.StockInvalidoException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import services.CategoriaService;
 import services.GestorPedidos;
 import services.ProductoService;
@@ -22,18 +24,16 @@ import services.UsuarioService;
  *
  * @author autor
  */
-  
+public class Main {
+    // Instanciamos los servicios de forma estática para usarlos en todos los submétodos
 
-    public class Main {
-        // Instanciamos los servicios de forma estática para usarlos en todos los submétodos
-    }
     private static CategoriaService categoriaService = new CategoriaService();
     private static ProductoService productoService = new ProductoService();
     private static UsuarioService usuarioService = new UsuarioService();
     private static GestorPedidos gestorPedidos = new GestorPedidos(usuarioService, productoService);
     private static Scanner leer = new Scanner(System.in);
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
         int opcion = -1;
         while (opcion != 0) {
             System.out.println("\n===============================================");
@@ -152,6 +152,8 @@ import services.UsuarioService;
             System.out.println("\n--- SUBMENÚ: GESTIÓN DE PRODUCTOS ---");
             System.out.println("1. Crear Producto");
             System.out.println("2. Listar Productos Activos");
+            System.out.println("3. Editar Producto");
+            System.out.println("4. Eliminar Producto");
             System.out.println("0. Volver al Menú Principal");
             System.out.print("Seleccione una opción: ");
             try {
@@ -171,11 +173,16 @@ import services.UsuarioService;
                     }
                     System.out.println("---------------------------------------");
 
-                    System.out.print("Nombre: "); String nombre = leer.nextLine();
-                    System.out.print("Precio: "); double precio = Double.parseDouble(leer.nextLine());
-                    System.out.print("Descripción: "); String desc = leer.nextLine();
-                    System.out.print("Stock Inicial: "); int stock = Integer.parseInt(leer.nextLine());
-                    System.out.print("URL Imagen: "); String img = leer.nextLine();
+                    System.out.print("Nombre: ");
+                    String nombre = leer.nextLine();
+                    System.out.print("Precio: ");
+                    double precio = Double.parseDouble(leer.nextLine());
+                    System.out.print("Descripción: ");
+                    String desc = leer.nextLine();
+                    System.out.print("Stock Inicial: ");
+                    int stock = Integer.parseInt(leer.nextLine());
+                    System.out.print("URL Imagen: ");
+                    String img = leer.nextLine();
 
                     System.out.print("Ingrese ID de la Categoría asociada: ");
                     long idCat = Long.parseLong(leer.nextLine());
@@ -191,12 +198,60 @@ import services.UsuarioService;
                     } else {
                         productoService.listarProductos().forEach(System.out::println);
                     }
+                } else if (op == 3) {
+                    System.out.println("\n--- EDITAR PRODUCTO ---");
+                    List<Producto> productosActivos = productoService.listarProductos();
+                    if (productosActivos.isEmpty()) {
+                        System.out.println("No hay productos registrados para editar.");
+                        return;
+                    }
+                    System.out.println("Productos Disponibles:");
+                    for (Producto p : productosActivos) {
+                        System.out.println("   ➡ [ID: " + p.getId() + "] - " + p.getNombre());
+                    }
+                    System.out.println("---------------------------------------");
+                    System.out.println("Ingrese el ID del producto a editar: ");
+                    long idProdEdit = Long.parseLong(leer.nextLine());
+                    System.out.print("Nuevo Nombre: ");
+                    String nomEdit = leer.nextLine();
+                    System.out.print("Nuevo Precio: ");
+                    double precEdit = Double.parseDouble(leer.nextLine());
+                    System.out.print("Nueva Descripción: ");
+                    String descEdit = leer.nextLine();
+                    System.out.print("Nuevo Stock: ");
+                    int stockEdit = Integer.parseInt(leer.nextLine());
+                    System.out.print("Nueva URL Imagen: ");
+                    String imgEdit = leer.nextLine();
+
+                    List<Categoria> categoriasDisp = categoriaService.listarCategorias();
+                    System.out.println("Categorías Disponibles:");
+                    for (Categoria c : categoriasDisp) {
+                        System.out.println("   ➡ [ID: " + c.getId() + "] - " + c.getNombre());
+                    }
+                    System.out.print("Ingrese ID de la nueva Categoría: ");
+                    long idCatEdit = Long.parseLong(leer.nextLine());
+                    Categoria catEdit = categoriaService.buscarPorId(idCatEdit);
+                    productoService.editarProducto(idProdEdit, nomEdit, precEdit, descEdit, stockEdit, imgEdit, catEdit);
+                    System.out.println("✅ ¡Producto editado con éxito!");
+
+                } else if (op == 4) {
+                    System.out.println("\n--- ELIMINAR PRODUCTO (BAJA LÓGICA) ---");
+                    System.out.print("Ingrese ID del producto a eliminar: ");
+                    long idProdEl = Long.parseLong(leer.nextLine());
+                    System.out.print("¿Está seguro? (S/N): ");
+                    if (leer.nextLine().equalsIgnoreCase("S")) {
+                        productoService.eliminarProducto(idProdEl);
+                        
+                        System.out.println("✅ ¡Producto eliminado lógicamente!");
+                    } else {
+                        System.out.println("⚠️ Operación cancelada.");
+                    }
                 } else if (op != 0) {
                     System.out.println("⚠️ Opción inválida.");
                 }
             } catch (NumberFormatException e) {
                 System.out.println(" Entrada invalida.");
-           
+
             } catch (DatosInvalidosException | EntidadNoEncontradaException | StockInvalidoException e) {
                 System.out.println(e.getMessage());
             }
@@ -240,8 +295,12 @@ import services.UsuarioService;
                     System.out.print("Seleccione Forma de Pago: ");
                     int fpOp = Integer.parseInt(leer.nextLine());
                     FormaPago fp = FormaPago.EFECTIVO;
-                    if (fpOp == 2) fp = FormaPago.TARJETA;
-                    if (fpOp == 3) fp = FormaPago.TRANSFERENCIA;
+                    if (fpOp == 2) {
+                        fp = FormaPago.TARJETA;
+                    }
+                    if (fpOp == 3) {
+                        fp = FormaPago.TRANSFERENCIA;
+                    }
 
                     List<GestorPedidos.DetalleAuxiliar> carrito = new ArrayList<>();
                     boolean agregando = true;
@@ -306,11 +365,16 @@ import services.UsuarioService;
                 op = Integer.parseInt(leer.nextLine());
                 if (op == 1) {
                     System.out.println("\n--- REGISTRAR NUEVO USUARIO ---");
-                    System.out.print("Nombre: "); String n = leer.nextLine();
-                    System.out.print("Apellido: "); String a = leer.nextLine();
-                    System.out.print("Email: "); String m = leer.nextLine();
-                    System.out.print("Celular: "); String c = leer.nextLine();
-                    System.out.print("Contraseña: "); String pass = leer.nextLine();
+                    System.out.print("Nombre: ");
+                    String n = leer.nextLine();
+                    System.out.print("Apellido: ");
+                    String a = leer.nextLine();
+                    System.out.print("Email: ");
+                    String m = leer.nextLine();
+                    System.out.print("Celular: ");
+                    String c = leer.nextLine();
+                    System.out.print("Contraseña: ");
+                    String pass = leer.nextLine();
 
                     usuarioService.registrarUsuario(n, a, m, c, pass, Rol.USUARIO);
                     System.out.println("✅ ¡Usuario creado con éxito!");
@@ -332,3 +396,4 @@ import services.UsuarioService;
             }
         }
     }
+}
