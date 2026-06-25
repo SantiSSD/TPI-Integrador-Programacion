@@ -241,7 +241,7 @@ public class Main {
                     System.out.print("¿Está seguro? (S/N): ");
                     if (leer.nextLine().equalsIgnoreCase("S")) {
                         productoService.eliminarProducto(idProdEl);
-                        
+
                         System.out.println("✅ ¡Producto eliminado lógicamente!");
                     } else {
                         System.out.println("⚠️ Operación cancelada.");
@@ -359,6 +359,8 @@ public class Main {
             System.out.println("\n--- 👥 SUBMENÚ: GESTIÓN DE USUARIOS ---");
             System.out.println("1. Registrar Usuario (HU-USR-02)");
             System.out.println("2. Listar Usuarios Activos (HU-USR-01)");
+            System.out.println("3. Editar Usuario (HU-USR-03)");
+            System.out.println("4. Eliminar Usuario (HU-USR-04)");
             System.out.println("0. Volver al Menú Principal");
             System.out.print("Seleccione una opción: ");
             try {
@@ -386,14 +388,57 @@ public class Main {
                     } else {
                         usuarioService.listarUsuarios().forEach(System.out::println);
                     }
+                } else if (op == 3) {
+                    System.out.println("\n--- EDITAR USUARIO ---");
+                    List<Usuario> usuariosActivos = usuarioService.listarUsuarios();
+                    if (usuariosActivos.isEmpty()) {
+                        System.out.println("❌ No hay usuarios registrados para editar.");
+                        return;
+                    }
+                    System.out.println("Usuarios Disponibles:");
+                    for (Usuario u : usuariosActivos) {
+                        System.out.println("   ➡ [ID: " + u.getId() + "] - " + u.getNombre() + " " + u.getApellido());
+                    }
+                    System.out.println("---------------------------------------");
+
+                    System.out.print("Ingrese ID del usuario a editar: ");
+                    long idUserEdit = Long.parseLong(leer.nextLine());
+                    System.out.print("Nuevo Nombre: ");
+                    String nomEdit = leer.nextLine();
+                    System.out.print("Nuevo Apellido: ");
+                    String apeEdit = leer.nextLine();
+                    System.out.print("Nuevo Celular: ");
+                    String celEdit = leer.nextLine();
+                    System.out.print("Nueva Contraseña: ");
+                    String passEdit = leer.nextLine();
+
+                    System.out.print("Rol (1. ADMIN | 2. USUARIO): ");
+                    int rolOp = Integer.parseInt(leer.nextLine());
+                    Rol rolU = (rolOp == 1) ? Rol.ADMIN : Rol.USUARIO;
+
+                    usuarioService.editarUsuario(idUserEdit, nomEdit, apeEdit, celEdit, passEdit, rolU);
+                    System.out.println("✅ ¡Usuario editado con éxito!");
+                } else if (op == 4) {
+                    System.out.println("\n--- ELIMINAR USUARIO (BAJA LÓGICA) ---");
+                    System.out.print("Ingrese ID del usuario a eliminar: ");
+                    long idUserEl = Long.parseLong(leer.nextLine());
+                    System.out.print("¿Está seguro? (S/N): ");
+                    if (leer.nextLine().equalsIgnoreCase("S")) {
+                        usuarioService.eliminarUsuario(idUserEl);
+                        System.out.println("✅ ¡Usuario eliminado lógicamente!");
+                    } else {
+                        System.out.println("⚠️ Operación cancelada.");
+                    }
                 } else if (op != 0) {
                     System.out.println("⚠️ Opción inválida.");
                 }
+
             } catch (NumberFormatException e) {
                 System.out.println("❌ Entrada inválida.");
-            } catch (DatosInvalidosException | EntidadDuplicadaException e) {
+            } catch (DatosInvalidosException | EntidadDuplicadaException | EntidadNoEncontradaException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 }
+    
