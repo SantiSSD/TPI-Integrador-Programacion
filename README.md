@@ -138,17 +138,11 @@ PENDIENTE → CONFIRMADO → TERMINADO
 
 ## Video Demostrativo
 
-*(Enlace próximamente)*
+https://youtu.be/NvVN7mwUWRY
 
----
+## Autores
+Gimenez Cristhian Santiago
+Castro Luis
+Vazquez Enzo
 
-## Documentación
 
-*(Enlace próximamente)*
-
----
-
-## Autor
-
-Trabajo Práctico Integrador - Programación 2
-Tecnicatura Universitaria en Programación (A Distancia)
